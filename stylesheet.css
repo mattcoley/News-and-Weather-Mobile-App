@@ -1,0 +1,22 @@
+.headofpage{
+	text-align: center;
+	font-family: Helvetica;
+	font-size: 30px;
+}
+
+h3{
+	font-family: Helvetica;
+}
+
+table{
+	table-layout: fixed;
+}
+
+td{
+	text-align: center;
+	width: 1%;
+}
+
+#locSubmit{
+	vertical-align: center;
+}

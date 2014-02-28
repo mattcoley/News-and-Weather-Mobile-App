@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--Set up the mobile viewport, load the necessary jQuery libraries, and link to the stylesheet and js-->
+		<meta name="viewport" content="width=device-width">
+		<link href="stylesheet.css" rel="stylesheet">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+		<script type= "text/javascript" src="script.js"></script>
+		<title>Local Weather and News</title>
+	</head>
+
+	<!--The frontpage serves as the main screen for the application that is first loaded.  From here, users will be able to select from three options-->
+	<div id="frontpage" data-role="page" data-theme="b">
+		<div class="headofpage" data-role="header"><a id="getLocNow" data-icon="search" data-iconpos="notext"></a><span id="location"></span></div>
+		<div  data-role="content">
+			<ul id="mainlist" data-role="listview">
+				<!--Three options listed here:-->
+				<li id="liw"><a id= "lw">Local Weather</a></li>
+				<li><a id= "ln">Local News</a></li>
+				<li><a href= "#changeLoc">Change Location</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!--Page for the weather portion of the application.  This part provides the user with information about the current day and future projects for the next couple days-->
+	<div id="weather" data-role="page" data-theme="b">
+		<div class="headofpage" data-role="header">
+			<a href="#frontpage" data-transition="slide" data-direction="reverse" data-icon="arrow-l">Back</a>
+			<h1>Weather</h1>
+		</div>
+		<div data-role="content">
+			<!--A switch was used for users that are used to metric units-->
+			<select name="tempUnit" id="tempUnit" data-role="slider" data-mini="true">
+				<option value="off">F&deg</option>
+				<option value="on">C&deg</option>
+			</select> 
+			<div data-role="collapsible-set" data-theme="b" data-content-theme="b">
+				<div data-role="collapsible" data-collapsed="false">
+					<h3>Today</h3>
+
+					<p align="center"><strong id="overallW"></strong></p>
+					<p align="center"><strong id="predictW"></strong></p>
+
+					<!--Beginning of nested collapsible set-->
+					<div data-role="collapsible">
+						<h3>Temperatures</h3>
+						<div>
+							<!--Tables are used to organize the weather data-->
+							<table align="center">
+								<tr>
+									<td>Low</td>
+									<td>Current</td>
+									<td>High</td>
+								</tr>
+								<!--Temperature data-->
+								<tr>
+									<td id="lTemp">N/A</td>
+									<td id="cTemp">N/A</td>
+									<td id="hTemp">N/A</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div data-role="collapsible">
+						<h3>Atmosphere Readings</h3>
+						<div>
+							<table align="center">
+								<!--Data relating to the atmosphere-->
+								<tr>
+									<td>Humidity</td>
+									<td>Pressure</td>
+									<td>Visibility</td>
+									<td>Wind</td>
+								</tr>
+								<tr>
+									<td id="cHumidity"></td>
+									<td id="cPressure"></td>
+									<td id="cVisibility"></td>
+									<td id="cWind"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<!--Forecast information for the next couple days-->
+				<div data-role="collapsible">
+					<h3>Rest of the week</h3>
+					<div data-role="collapsible-set">
+						<h3>Tomorrow</h3>
+						<p>Tomorrow is supposed to be <span id="fDay1"></span> with a high of <span id="hDay1"></span> a low of <span id="lDay1"></span>.
+					</div>
+					<div data-role="collapsible-set">
+						<h3 id="dName2"></h3>
+						<p><span id="d2"></span> is supposed to be <span id="fDay2"></span> with a high of <span id="hDay2"></span> a low of <span id="lDay2"></span>.
+					</div>
+					<div data-role="collapsible-set">
+						<h3 id="dName3"></h3>
+						<p><span id="d3"></span> is supposed to be <span id="fDay3"></span> with a high of <span id="hDay3"></span> a low of <span id="lDay3"></span>.
+					</div>
+					<div data-role="collapsible-set">
+						<h3 id="dName4"></h3>
+						<p><span id="d4"></span> is supposed to be <span id="fDay4"></span> with a high of <span id="hDay4"></span> a low of <span id="lDay4"></span>.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--This is the news page.  Most of the html is added using jQuery-->
+	<div id="news" data-role="page" data-theme="b">
+		<div class="headofpage" data-role="header">
+			<a href="#frontpage" data-transition="slide" data-direction="reverse" data-icon="arrow-l">Back</a>
+			<h1>News</h1>
+		</div>
+		<!--The collapsible set is left empty and will be later filled in-->
+		<div id="test" data-role="content" >
+			<div id="newslist" data-role="collapsible-set" data-theme="b" data-content-theme="b"></div>
+		</div>
+
+	</div>
+
+
+	<!--The last page allows the user to change his location-->
+	<div id="changeLoc" data-role="page" data-theme="b"> 
+		<div class="headofpage" data-role="header">
+			<a href="#frontpage" data-transition="slide" data-direction="reverse" data-icon="arrow-l">Back</a>
+			<h1>Location</h1>
+		</div>
+			<div data-role="content">
+				<div display="inline" float="left">
+					<!--Input from user stored by using jQuery click() event-->
+					<input type="text" name="name" id="locEnter" value="" data-clear-btn="true" placeholder="Location" data-inline="true"></input>
+				</div>
+				<div display="inline" align="center">
+					<a id="locSubmit" data-role="button" data-icon="search" data-inline="true">Search</a>
+				</div>
+				<br></br>
+					<!--Displays the last couple locations-->
+					<ul data-role="listview" data-theme="b" data-content-theme="b">
+						<li><a id="loc0" class="lClick"></a></li>
+						<li><a id="loc1" class="lClick"></a></li>
+						<li><a id="loc2" class="lClick"></a></li>
+						<li><a id="loc3" class="lClick"></a></li>
+						<li><a id="loc4" class="lClick"></a></li>
+					</ul>
+			</div>
+		</div>
+	</div>
+
+</html>
